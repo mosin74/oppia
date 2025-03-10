@@ -614,6 +614,11 @@ export class SiteAnalyticsService {
       button_name: buttonName,
       page_path: this.windowRef.nativeWindow.location.pathname,
     });
+    console.log(
+      buttonName +
+        ' = page_path :' +
+        this.windowRef.nativeWindow.location.pathname
+    );
   }
 
   registerFirstTimePageViewEvent(lastPageViewTimeKey: string): void {

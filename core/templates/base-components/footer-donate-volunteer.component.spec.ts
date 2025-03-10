@@ -70,4 +70,155 @@ describe('Thanks for subscribing modal component', function () {
 
     expect(mockWindowRef.nativeWindow.location.href).toBe('/volunteer');
   });
+
+  it('should register Donate footer link click event', () => {
+    spyOn(siteAnalyticsService, 'registerClickFooterButtonEvent');
+    expect(mockWindowRef.nativeWindow.location.href).toBe('');
+
+    component.navigateToDonatePage();
+
+    expect(
+      siteAnalyticsService.registerClickFooterButtonEvent
+    ).toHaveBeenCalledWith(NavbarAndFooterGATrackingPages.DONATE);
+
+    expect(mockWindowRef.nativeWindow.location.href).toBe('/donate');
+  });
 });
+
+// import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+// import {MockTranslatePipe} from 'tests/unit-test-utils';
+// import {FooterDonateVolunteerComponent} from './footer-donate-volunteer.component';
+// import {SiteAnalyticsService} from 'services/site-analytics.service';
+// import {WindowRef} from 'services/contextual/window-ref.service';
+// import {NavbarAndFooterGATrackingPages} from 'app.constants';
+// import {Renderer2, ElementRef} from '@angular/core';
+
+// class MockWindowRef {
+//   nativeWindow = {
+//     location: {
+//       pathname: '/learn/math',
+//       href: '',
+//     },
+//     gtag: () => {},
+//   };
+// }
+
+// class MockRenderer2 {
+//   listen(target: any, event: string, callback: (event: any) => void): () => void {
+//     return () => {};
+//   }
+// }
+
+// describe('FooterDonateVolunteerComponent', () => {
+//   let component: FooterDonateVolunteerComponent;
+//   let fixture: ComponentFixture<FooterDonateVolunteerComponent>;
+//   let siteAnalyticsService: SiteAnalyticsService;
+//   let mockWindowRef: MockWindowRef;
+//   let mockRenderer2: MockRenderer2;
+//   let mockElementRef: ElementRef;
+
+//   beforeEach(waitForAsync(() => {
+//     mockWindowRef = new MockWindowRef();
+//     mockRenderer2 = new MockRenderer2();
+//     mockElementRef = {
+//       nativeElement: document.createElement('div'),
+//     };
+
+//     TestBed.configureTestingModule({
+//       declarations: [MockTranslatePipe, FooterDonateVolunteerComponent],
+//       providers: [
+//         {
+//           provide: WindowRef,
+//           useValue: mockWindowRef,
+//         },
+//         {
+//           provide: Renderer2,
+//           useValue: mockRenderer2,
+//         },
+//         {
+//           provide: ElementRef,
+//           useValue: mockElementRef,
+//         },
+//       ],
+//     }).compileComponents();
+//   }));
+
+//   beforeEach(() => {
+//     fixture = TestBed.createComponent(FooterDonateVolunteerComponent);
+//     component = fixture.componentInstance;
+//     siteAnalyticsService = TestBed.inject(SiteAnalyticsService);
+//   });
+
+//   it('should register Volunteer footer link click event', () => {
+//     spyOn(siteAnalyticsService, 'registerClickFooterButtonEvent');
+//     expect(mockWindowRef.nativeWindow.location.href).toBe('');
+
+//     component.navigateToVolunteerPage();
+
+//     expect(
+//       siteAnalyticsService.registerClickFooterButtonEvent
+//     ).toHaveBeenCalledWith(NavbarAndFooterGATrackingPages.VOLUNTEER);
+
+//     expect(mockWindowRef.nativeWindow.location.href).toBe('/volunteer');
+//   });
+
+//   it('should register Donate footer link click event', () => {
+//     spyOn(siteAnalyticsService, 'registerClickFooterButtonEvent');
+//     expect(mockWindowRef.nativeWindow.location.href).toBe('');
+
+//     component.navigateToDonatePage();
+
+//     expect(
+//       siteAnalyticsService.registerClickFooterButtonEvent
+//     ).toHaveBeenCalledWith(NavbarAndFooterGATrackingPages.DONATE);
+
+//     expect(mockWindowRef.nativeWindow.location.href).toBe('/donate');
+//   });
+
+//   it('should prevent default navigation and call analytics for Volunteer link', () => {
+//     spyOn(siteAnalyticsService, 'registerClickFooterButtonEvent');
+//     const event = new Event('click');
+//     spyOn(event, 'preventDefault');
+
+//     // Simulate a click event on the Volunteer link
+//     component.navigateToVolunteerPage();
+
+//     expect(event.preventDefault).toHaveBeenCalled();
+//     expect(
+//       siteAnalyticsService.registerClickFooterButtonEvent
+//     ).toHaveBeenCalledWith(NavbarAndFooterGATrackingPages.VOLUNTEER);
+//   });
+
+//   it('should prevent default navigation and call analytics for Donate link', () => {
+//     spyOn(siteAnalyticsService, 'registerClickFooterButtonEvent');
+//     const event = new Event('click');
+//     spyOn(event, 'preventDefault');
+
+//     // Simulate a click event on the Donate link
+//     component.navigateToDonatePage();
+
+//     expect(event.preventDefault).toHaveBeenCalled();
+//     expect(
+//       siteAnalyticsService.registerClickFooterButtonEvent
+//     ).toHaveBeenCalledWith(NavbarAndFooterGATrackingPages.DONATE);
+//   });
+
+//   it('should set up click listeners for Donate and Volunteer links', () => {
+//     spyOn(mockRenderer2, 'listen').and.callThrough();
+
+//     // Simulate the presence of Donate and Volunteer links in the DOM
+//     const donateLink = document.createElement('a');
+//     donateLink.setAttribute('href', '/donate');
+//     mockElementRef.nativeElement.appendChild(donateLink);
+
+//     const volunteerLink = document.createElement('a');
+//     volunteerLink.setAttribute('href', '/volunteer');
+//     mockElementRef.nativeElement.appendChild(volunteerLink);
+
+//     // Call the method to set up click listeners
+//     component.setupClickListeners();
+
+//     expect(mockRenderer2.listen).toHaveBeenCalledWith(donateLink, 'click', jasmine.any(Function));
+//     expect(mockRenderer2.listen).toHaveBeenCalledWith(volunteerLink, 'click', jasmine.any(Function));
+//   });
+// });
