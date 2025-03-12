@@ -41,9 +41,7 @@ class MockWindowRef {
 }
 
 class MockSiteAnalyticsService {
-  registerClickFooterButtonEvent(page: string): void {
-    console.log(`Analytics event registered for page: ${page}`);
-  }
+  registerClickFooterButtonEvent(page: string): void {}
 }
 
 describe('FooterDonateVolunteerComponent', () => {
@@ -168,7 +166,7 @@ describe('FooterDonateVolunteerComponent', () => {
     component.el.nativeElement.appendChild(donateLink);
     component.el.nativeElement.appendChild(volunteerLink);
     const rendererListenSpy = spyOn(
-      component['renderer'],
+      component.renderer,
       'listen'
     ).and.callThrough();
     component.ngAfterViewInit();
