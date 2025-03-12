@@ -16,37 +16,12 @@
  * @fileoverview Component for the donate volunteer links in the footer.
  */
 
-// import {Component, ViewEncapsulation} from '@angular/core';
-// import {WindowRef} from 'services/contextual/window-ref.service';
-// import {SiteAnalyticsService} from 'services/site-analytics.service';
-// import {NavbarAndFooterGATrackingPages} from 'app.constants';
-
-// @Component({
-//   selector: 'oppia-footer-donate-volunteer',
-//   templateUrl: './footer-donate-volunteer.component.html',
-//   encapsulation: ViewEncapsulation.None,
-// })
-// export class FooterDonateVolunteerComponent {
-//   constructor(
-//     private windowRef: WindowRef,
-//     private siteAnalyticsService: SiteAnalyticsService
-//   ) {}
-
-//   navigateToVolunteerPage(): void {
-//     this.siteAnalyticsService.registerClickFooterButtonEvent(
-//       NavbarAndFooterGATrackingPages.VOLUNTEER
-//     );
-//     this.windowRef.nativeWindow.location.href = '/volunteer';
-//   }
-// }
-
 import {
   Component,
   ViewEncapsulation,
   Renderer2,
   ElementRef,
   AfterViewInit,
-  ChangeDetectorRef,
 } from '@angular/core';
 import {WindowRef} from 'services/contextual/window-ref.service';
 import {SiteAnalyticsService} from 'services/site-analytics.service';
@@ -81,10 +56,8 @@ export class FooterDonateVolunteerComponent implements AfterViewInit {
     const volunteerLink = this.el.nativeElement.querySelector(
       'a[href="/volunteer"]'
     );
-    console.log(donateLink);
-    console.log(volunteerLink);
 
-    // If the "Donate" link exists, attach a click event listener to it.
+    // If link exists, attach a click event listener to it.
     if (donateLink) {
       this.renderer.listen(donateLink, 'click', event => {
         event.preventDefault();
@@ -92,7 +65,6 @@ export class FooterDonateVolunteerComponent implements AfterViewInit {
       });
     }
 
-    // If the "Volunteer" link exists, attach a click event listener to it.
     if (volunteerLink) {
       this.renderer.listen(volunteerLink, 'click', event => {
         event.preventDefault();
@@ -102,28 +74,16 @@ export class FooterDonateVolunteerComponent implements AfterViewInit {
   }
 
   navigateToDonatePage(): void {
-    // Log the analytics event and the navigation URL
     this.siteAnalyticsService.registerClickFooterButtonEvent(
       NavbarAndFooterGATrackingPages.DONATE
     );
-    console.log(NavbarAndFooterGATrackingPages.DONATE + '= ' + '/donate');
-
-    // Use setTimeout to delay the navigation
-    setTimeout(() => {
-      this.windowRef.nativeWindow.location.href = '/donate';
-    }, 3000);
+    this.windowRef.nativeWindow.location.href = '/donate';
   }
 
   navigateToVolunteerPage(): void {
-    // Log the analytics event and the navigation URL
     this.siteAnalyticsService.registerClickFooterButtonEvent(
       NavbarAndFooterGATrackingPages.VOLUNTEER
     );
-    console.log(NavbarAndFooterGATrackingPages.VOLUNTEER + '= ' + '/volunteer');
-
-    // Use setTimeout to delay the navigation
-    setTimeout(() => {
-      this.windowRef.nativeWindow.location.href = '/volunteer';
-    }, 3000);
+    this.windowRef.nativeWindow.location.href = '/volunteer';
   }
 }
