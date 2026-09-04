@@ -42,16 +42,10 @@
                *ngFor="let certificate of availableCertificates">
         <div class="oppia-certificate-offering-available-page-tile-top">
           <div class="oppia-certificate-offering-available-page-tile-heading">
-            <!-- TODO(#24717-M2.25): Replace this placeholder badge icon with the final design from the mocks.
-                 Mock reference: https://canva.link/iyyjva1dn36ymuc -->
             <span class="oppia-certificate-offering-available-page-badge-icon"
                   aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="85" height="85">
-                <circle cx="32" cy="24" r="15" fill="#F1C44C" stroke="#B88914" stroke-width="2"></circle>
-                <circle cx="32" cy="24" r="10" fill="#F9E39B"></circle>
-                <path d="M22 36L15 56L32 47L49 56L42 36Z" fill="#0B7A62"></path>
-                <path d="M27.5 23.5L30.5 26.5L37 20" fill="none" stroke="#B88914" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
+              <img src="/assets/images/certificate-assessment/certificate badge.png"
+                   alt="" height="85">
             </span>
             <div>
               <h3 class="oppia-certificate-offering-available-page-tile-heading-text">{{ certificate.title }}</h3>

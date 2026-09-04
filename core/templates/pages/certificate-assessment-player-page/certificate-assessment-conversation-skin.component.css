@@ -188,7 +188,7 @@
   .certificate-assessment-progress-card,
   .certificate-assessment-question-card,
   .certificate-assessment-actions {
-    width: 50%
+    max-width: 90%;
   }
 
   .certificate-assessment-question-card {
