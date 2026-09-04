@@ -35,6 +35,10 @@
   text-align: center;
 }
 
+.result-card--failed .result-card-heading {
+  font-weight: 400;
+}
+
 .result-card-earned-banner {
   border-radius: 6px;
   margin-bottom: 24px;
@@ -105,6 +109,7 @@
   .result-card {
     margin: -120px 16px 32px;
     padding: 28px 20px 24px;
+    top: 125px;
   }
 
   .result-card-summary {

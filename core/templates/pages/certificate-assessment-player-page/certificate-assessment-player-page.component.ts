@@ -82,10 +82,10 @@ export class CertificateAssessmentPlayerPageComponent
   answers: {[questionId: string]: InteractionAnswer | null} = {};
   interactions: {[questionId: string]: Interaction} = {};
   interactionHtmls: {[questionId: string]: string} = {};
+  questionStatuses: {[index: number]: string} = {};
   focusLabel = '';
   currentQuestion: AssessmentQuestion | null = null;
   totalQuestionCount = 0;
-  progressPercentage = 0;
   isLastQuestion = false;
   hasHandledTimeExpiry = false;
   private handleSubmitFn: OnSubmitFn;
@@ -135,6 +135,7 @@ export class CertificateAssessmentPlayerPageComponent
         attemptQuestion.questionId,
         attemptQuestion.questionStateData
       );
+      this.questionStatuses[index] = 'unvisited';
     });
   }
 
@@ -256,6 +257,18 @@ export class CertificateAssessmentPlayerPageComponent
     this.refreshComputedFields();
   }
 
+  navigateToQuestion(index: number): void {
+    if (index < 0 || index >= this.getTotalQuestionCount()) {
+      return;
+    }
+    this.currentQuestionIndex = index;
+    this.refreshComputedFields();
+  }
+
+  getQuestionIndexes(): number[] {
+    return Array.from({length: this.getTotalQuestionCount()}, (_, i) => i);
+  }
+
   private collectAnswers(): SubmitCertificateAssessmentAnswerBackendDict[] {
     const loadedQuestions = this.questions.filter(
       (question): question is AssessmentQuestion => question !== undefined
@@ -332,6 +345,7 @@ export class CertificateAssessmentPlayerPageComponent
       return;
     }
     this.answers[question.id] = answer;
+    this.questionStatuses[this.currentQuestionIndex] = 'attempted';
     this.refreshComputedFields();
   }
 
@@ -348,15 +362,6 @@ export class CertificateAssessmentPlayerPageComponent
       return answer;
     }
     return JSON.stringify(answer);
-  }
-
-  getProgressPercentage(): number {
-    if (this.getTotalQuestionCount() === 0) {
-      return 0;
-    }
-    return Math.round(
-      ((this.currentQuestionIndex + 1) / this.getTotalQuestionCount()) * 100
-    );
   }
 
   getCurrentQuestion(): AssessmentQuestion | null {
@@ -380,7 +385,9 @@ export class CertificateAssessmentPlayerPageComponent
   private refreshComputedFields(): void {
     this.currentQuestion = this.getCurrentQuestion();
     this.totalQuestionCount = this.getTotalQuestionCount();
-    this.progressPercentage = this.getProgressPercentage();
     this.isLastQuestion = this.isCurrentQuestionLast();
+    if (this.questionStatuses[this.currentQuestionIndex] !== 'attempted') {
+      this.questionStatuses[this.currentQuestionIndex] = 'visited';
+    }
   }
 }
