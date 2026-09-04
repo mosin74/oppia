@@ -26,10 +26,6 @@
   --oppia-result-accent: #b3261e;
 }
 
-.result-card--failed .result-card-heading {
-  font-weight: 400;
-}
-
 .result-card-heading {
   color: var(--oppia-result-accent);
   font-family: 'Capriola', 'Roboto', Arial, sans-serif;
@@ -37,6 +33,10 @@
   font-weight: 800;
   margin-bottom: 20px;
   text-align: center;
+}
+
+.result-card--failed .result-card-heading {
+  font-weight: 400;
 }
 
 .result-card-earned-banner {

@@ -86,8 +86,8 @@
   }
 
   .oppia-titled-background-banner-button.btn-primary {
+    font-size: 1.6rem;
     margin-left: 0;
     width: 120px;
-    font-size: 1.6rem;
   }
 }
