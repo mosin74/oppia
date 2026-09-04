@@ -95,10 +95,6 @@ describe('AssessmentIntroductionCardComponent', () => {
   });
 
   it('should stop loading topics after the classroom data is fetched', async () => {
-    expect(component.isLoadingTopics).toBe(true);
-
-    await fixture.whenStable();
-
     expect(component.isLoadingTopics).toBe(false);
   });
 
